@@ -1,0 +1,297 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: carts
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: carts
+    spec:
+      containers:
+      - name: carts
+        image: 10.141.211.160:5000/header/carts
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: "JAVA_OPTIONS"
+          value: "-Xmx300m"
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 150
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: catalogue
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: catalogue
+    spec:
+      containers:
+      - name: catalogue
+        image: 10.141.211.160:5000/header/catalogue
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8081
+        env:
+        - name: "JAVA_OPTIONS"
+          value: "-Xmx300m"
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+        readinessProbe:
+          tcpSocket:
+            port: 8081
+          initialDelaySeconds: 150
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: orders
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: orders
+    spec:
+      containers:
+      - name: orders
+        image: 10.141.211.160:5000/header/orders
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8082
+        env:
+        - name: "JAVA_OPTIONS"
+          value: "-Xmx300m"
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+        readinessProbe:
+          tcpSocket:
+            port: 8082
+          initialDelaySeconds: 150
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: payment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+      - name: payment
+        image: 10.141.211.160:5000/header/payment
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8083
+        env:
+        - name: "JAVA_OPTIONS"
+          value: "-Xmx300m"
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+        readinessProbe:
+          tcpSocket:
+            port: 8083
+          initialDelaySeconds: 150
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: shipping
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: shipping
+    spec:
+      containers:
+      - name: shipping
+        image: 10.141.211.160:5000/header/shipping
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8084
+        env:
+        - name: "JAVA_OPTIONS"
+          value: "-Xmx300m"
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+        readinessProbe:
+          tcpSocket:
+            port: 8084
+          initialDelaySeconds: 150
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: user
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+      - name: user
+        image: 10.141.211.160:5000/header/user
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8085
+        env:
+        - name: "JAVA_OPTIONS"
+          value: "-Xmx300m"
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+        readinessProbe:
+          tcpSocket:
+            port: 8085
+          initialDelaySeconds: 150
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 6
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: carts
+spec:
+  ports:
+  - name: http
+    port: 8080
+  selector:
+    app: carts
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+spec:
+  ports:
+  - name: http
+    port: 8081
+  selector:
+    app: catalogue
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders
+spec:
+  ports:
+  - name: http
+    port: 8082
+  selector:
+    app: orders
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment
+spec:
+  ports:
+  - name: http
+    port: 8083
+  selector:
+    app: payment
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: shipping
+spec:
+  ports:
+  - name: http
+    port: 8084
+  selector:
+    app: shipping
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+spec:
+  ports:
+  - name: http
+    port: 8085
+  selector:
+    app: user

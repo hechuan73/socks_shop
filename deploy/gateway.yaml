@@ -1,0 +1,97 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: socks-shop-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: socks-shop
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - socks-shop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /cart
+    route:
+    - destination:
+        host: carts
+        port:
+          number: 8080
+  - match:
+    - uri:
+        prefix: /catalogue
+    route:
+    - destination:
+        host: catalogue
+        port:
+          number: 8081
+  - match:
+    - uri:
+        prefix: /catalogue
+    route:
+    - destination:
+        host: catalogue
+        port:
+          number: 8081
+  - match:
+    - uri:
+        prefix: /orders
+    route:
+    - destination:
+        host: orders
+        port:
+          number: 8082
+  - match:
+    - uri:
+        prefix: /orders
+    route:
+    - destination:
+        host: orders
+        port:
+          number: 8082
+  - match:
+    - uri:
+        prefix: /pay
+    route:
+    - destination:
+        host: payment
+        port:
+          number: 8083
+  - match:
+    - uri:
+        prefix: /shipping
+    route:
+    - destination:
+        host: shipping
+        port:
+          number: 8084
+  - match:
+    - uri:
+        prefix: /login
+    - uri:
+        prefix: /register
+    - uri:
+        prefix: /address
+    - uri:
+        prefix: /card
+    - uri:
+        prefix: /customer
+    route:
+    - destination:
+        host: user
+        port:
+          number: 8085
