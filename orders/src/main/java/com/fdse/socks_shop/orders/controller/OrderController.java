@@ -32,11 +32,10 @@ public class OrderController {
         List<Object> items = getDataList("http://carts:8080/carts/" + customerId + "/items", headers);
 
         // pay the order
-        String orderId = UUID.randomUUID().toString();
-        Object payment = postResource("http://payment:8083/pay", orderId, headers);
+        Object payment = postResource("http://payment:8083/pay", new Message(), headers);
 
         // ship the order
-        Object shipment = postResource("http://shipping:8084/shipping", orderId, headers);
+        Object shipment = postResource("http://shipping:8084/shipping", new Message(), headers);
 
         return new ResponseEntity<>(new Message("Add to cart succeed!"), HttpStatus.CREATED);
     }

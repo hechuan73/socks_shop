@@ -8,6 +8,8 @@ public class Message {
         this.data = data;
     }
 
+    public Message() {}
+
     public Object getData() {
         return data;
     }
