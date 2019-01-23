@@ -1,16 +1,13 @@
 package com.fdse.socks_shop.orders.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.Future;
 
 @RestController
 public class OrderController {
@@ -63,11 +60,9 @@ public class OrderController {
 
     private List<Object> getDataList(String url, HttpHeaders httpHeaders) {
         HttpEntity request = new HttpEntity<>(httpHeaders);
-        ResponseEntity<List<Object>> responseEntity = restTemplate.exchange(url, HttpMethod.GET, request, new
-                ParameterizedTypeReference<List<Object>>() {
-                });
+        ResponseEntity<LinkedHashMap> responseEntity = restTemplate.exchange(url, HttpMethod.GET, request, LinkedHashMap.class);
 
-        return responseEntity.getBody();
+        return (List<Object>) responseEntity.getBody().get("data");
 
     }
 
