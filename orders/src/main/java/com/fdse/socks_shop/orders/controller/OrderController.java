@@ -19,7 +19,7 @@ public class OrderController {
     private RestTemplate restTemplate;
 
     @PostMapping("/orders")
-    public ResponseEntity<Message> newOrder(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
+    public ResponseEntity<Message> newOrder(@RequestHeader HttpHeaders headers) {
 
         // get user address
         Object address = getResource("http://user:8085/address", headers);
