@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShippingController {
 
     @PostMapping("/shipping")
-    public ResponseEntity<String> postShipping(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
-        return new ResponseEntity<>("Ship order succeed!", HttpStatus.CREATED);
+    public ResponseEntity<Message> postShipping(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
+        return new ResponseEntity<>(new Message("Ship order succeed!"), HttpStatus.CREATED);
     }
 }

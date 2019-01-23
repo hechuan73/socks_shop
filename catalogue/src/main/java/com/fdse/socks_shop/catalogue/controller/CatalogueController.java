@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CatalogueController {
 
     @GetMapping(value = "/catalogue")
-    public ResponseEntity<String> getItems(@RequestHeader HttpHeaders headers, @RequestParam("page") String page,
+    public ResponseEntity<Message> getItems(@RequestHeader HttpHeaders headers, @RequestParam("page") String page,
                                            @RequestParam("size") String size, @RequestParam("tags") String tags) {
-        return new ResponseEntity<>("Get items succeed!", HttpStatus.OK);
+        return new ResponseEntity<>(new Message("Get items succeed!"), HttpStatus.OK);
     }
 }

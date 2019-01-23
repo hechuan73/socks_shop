@@ -9,38 +9,38 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> register(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
-        return new ResponseEntity<>("Register succeed!", HttpStatus.CREATED);
+    public ResponseEntity<Message> register(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
+        return new ResponseEntity<>(new Message("Register succeed!"), HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestHeader HttpHeaders headers) {
-        return new ResponseEntity<>("Login succeed!", HttpStatus.OK);
+    public ResponseEntity<Message> login(@RequestHeader HttpHeaders headers) {
+        return new ResponseEntity<>(new Message("Login succeed!"), HttpStatus.OK);
     }
 
     @PostMapping("/addresses")
-    public ResponseEntity<String> address(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
-        return new ResponseEntity<>("Set address succeed!", HttpStatus.CREATED);
+    public ResponseEntity<Message> address(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
+        return new ResponseEntity<>(new Message("Set address succeed!"), HttpStatus.CREATED);
     }
 
     @GetMapping("/address")
-    public ResponseEntity<String> address(@RequestHeader HttpHeaders headers) {
-        return new ResponseEntity<>("Get address succeed!", HttpStatus.OK);
+    public ResponseEntity<Message> address(@RequestHeader HttpHeaders headers) {
+        return new ResponseEntity<>(new Message("Get address succeed!"), HttpStatus.OK);
     }
 
     @PostMapping("/cards")
-    public ResponseEntity<String> card(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
-        return new ResponseEntity<>("Set card succeed!", HttpStatus.CREATED);
+    public ResponseEntity<Message> card(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
+        return new ResponseEntity<>(new Message("Set card succeed!"), HttpStatus.CREATED);
     }
 
     @GetMapping("/card")
-    public ResponseEntity<String> card(@RequestHeader HttpHeaders headers) {
-        return new ResponseEntity<>("Get card succeed!", HttpStatus.OK);
+    public ResponseEntity<Message> card(@RequestHeader HttpHeaders headers) {
+        return new ResponseEntity<>(new Message("Get card succeed!"), HttpStatus.OK);
     }
 
     @GetMapping("/customer")
-    public ResponseEntity<String> customer(@RequestHeader HttpHeaders headers) {
-        return new ResponseEntity<>("Get customer succeed!", HttpStatus.OK);
+    public ResponseEntity<Message> customer(@RequestHeader HttpHeaders headers) {
+        return new ResponseEntity<>(new Message("Get customer succeed!"), HttpStatus.OK);
     }
 
 }

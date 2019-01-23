@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentController {
 
     @PostMapping("/pay")
-    public ResponseEntity<String> pay(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
-        return new ResponseEntity<>("Pay order succeed!", HttpStatus.OK);
+    public ResponseEntity<Message> pay(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
+        return new ResponseEntity<>(new Message("Pay order succeed!"), HttpStatus.OK);
     }
 }

@@ -19,7 +19,7 @@ public class OrderController {
     private RestTemplate restTemplate;
 
     @PostMapping("/orders")
-    public ResponseEntity<String> newOrder(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
+    public ResponseEntity<Message> newOrder(@RequestHeader HttpHeaders headers, @RequestBody Object requestBody) {
 
         // get user address
         Object address = getResource("http://user:8085/address", headers);
@@ -41,17 +41,17 @@ public class OrderController {
         // ship the order
         Object shipment = postResource("http://shipping:8084/shipping", orderId, headers);
 
-        return new ResponseEntity<>("Add to cart succeed!", HttpStatus.CREATED);
+        return new ResponseEntity<>(new Message("Add to cart succeed!"), HttpStatus.CREATED);
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<String> getOrders(@RequestHeader HttpHeaders headers) {
-        return new ResponseEntity<>("Get cart items succeed!", HttpStatus.OK);
+    public ResponseEntity<Message> getOrders(@RequestHeader HttpHeaders headers) {
+        return new ResponseEntity<>(new Message("Get cart items succeed!"), HttpStatus.OK);
     }
 
     @GetMapping("/orders/{orderId}")
-    public ResponseEntity<String> getOrders(@RequestHeader HttpHeaders headers, @PathVariable String orderId) {
-        return new ResponseEntity<>("Get cart items succeed!", HttpStatus.OK);
+    public ResponseEntity<Message> getOrders(@RequestHeader HttpHeaders headers, @PathVariable String orderId) {
+        return new ResponseEntity<>(new Message("Get cart items succeed!"), HttpStatus.OK);
     }
 
     private Object getResource(String url, HttpHeaders httpHeaders) {
