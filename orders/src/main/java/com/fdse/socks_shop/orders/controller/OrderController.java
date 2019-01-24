@@ -25,10 +25,10 @@ public class OrderController {
         injectMemoryDefect();
 
         // get user address
-        Object address = getResource("http://user:8085/address", headers);
+        // Object address = getResource("http://user:8085/address", headers);
 
         // get user card
-        Object card = getResource("http://user:8085/card", headers);
+        // Object card = getResource("http://user:8085/card", headers);
 
         // get user info
         Object customer = getResource("http://user:8085/customer", headers);
