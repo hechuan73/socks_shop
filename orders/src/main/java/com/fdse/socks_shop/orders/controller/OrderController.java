@@ -41,7 +41,7 @@ public class OrderController {
         getDataList("http://carts:8080/carts/" + customerId + "/items", headers, list1, list2, futures);
 
         // pay the order
-        postResource("http://payment:8083/pay", new Message(), headers, list2, list3, futures);
+        postResource("http://payment:8083/pay", new Message(), headers, list1, list3, futures);
 
         // ship the order
         postResource2("http://shipping:8084/shipping", new Message(), headers, list1, list4, futures);
@@ -90,7 +90,7 @@ public class OrderController {
         HttpEntity<Object> request = new HttpEntity<>(requestBody, httpHeaders);
         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
             ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.POST, request, Object.class);
-            System.out.println(list2.get());
+            System.out.println(list2.get(0));
             return responseEntity;
         }).thenAccept(list3::add);
 
@@ -101,7 +101,6 @@ public class OrderController {
         HttpEntity<Object> request = new HttpEntity<>(requestBody, httpHeaders);
         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
             ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.POST, request, Object.class);
-            System.out.println(list1.get(0));
             return responseEntity;
         }).thenAccept(list4::add);
 
