@@ -5,6 +5,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
@@ -17,6 +18,11 @@ public class OrderController {
 
     @PostMapping("/orders")
     public ResponseEntity<Message> newOrder(@RequestHeader HttpHeaders headers) {
+
+        /*---------------------
+          ----- OOM Defect------
+          -----------------------*/
+        injectMemoryDefect();
 
         // get user address
         Object address = getResource("http://user:8085/address", headers);
@@ -80,4 +86,10 @@ public class OrderController {
 //        return new AsyncResult<>(responseEntity.getBody());
 //    }
 
+    private void injectMemoryDefect() {
+        List<String> defects = new ArrayList<>();
+        for (int i = 0; i < 10000000; i++) {
+            defects.add(i + "");
+        }
+    }
 }
