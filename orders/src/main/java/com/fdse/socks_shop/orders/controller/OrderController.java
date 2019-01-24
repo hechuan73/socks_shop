@@ -41,7 +41,7 @@ public class OrderController {
         getDataList("http://carts:8080/carts/" + customerId + "/items", headers, list1, list2, futures);
 
         // pay the order
-        postResource("http://payment:8083/pay", new Message(), headers, list1, list3, futures);
+        postResource("http://payment:8083/pay", new Message(), headers, list2, list3, futures);
 
         // ship the order
         postResource2("http://shipping:8084/shipping", new Message(), headers, list1, list4, futures);
@@ -64,11 +64,6 @@ public class OrderController {
     private void getResource(String url, HttpHeaders httpHeaders, List<Object> list1, List<CompletableFuture<Void>> futures) {
         HttpEntity request = new HttpEntity<>(httpHeaders);
         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.GET, request, Object.class);
             return responseEntity;
         }).thenAccept(list1::add);
@@ -79,6 +74,11 @@ public class OrderController {
     private void getDataList(String url, HttpHeaders httpHeaders, List<Object> list1, List<Object> list2, List<CompletableFuture<Void>> futures) {
         HttpEntity request = new HttpEntity<>(httpHeaders);
         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             ResponseEntity<LinkedHashMap> responseEntity = restTemplate.exchange(url, HttpMethod.GET, request, LinkedHashMap.class);
             return responseEntity;
         }).thenAccept(list2::add);
@@ -86,10 +86,11 @@ public class OrderController {
         futures.add(future);
     }
 
-    private void postResource(String url, Object requestBody, HttpHeaders httpHeaders, List<Object> list1, List<Object> list3, List<CompletableFuture<Void>> futures) {
+    private void postResource(String url, Object requestBody, HttpHeaders httpHeaders, List<Object> list2, List<Object> list3, List<CompletableFuture<Void>> futures) {
         HttpEntity<Object> request = new HttpEntity<>(requestBody, httpHeaders);
         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> {
             ResponseEntity<Object> responseEntity = restTemplate.exchange(url, HttpMethod.POST, request, Object.class);
+            System.out.println(list2.get());
             return responseEntity;
         }).thenAccept(list3::add);
 
